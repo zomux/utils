@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+					<title>NTCIR7 Scoring tools for Patent Translation task</title>
+		<link rel="stylesheet" href="default.css" type="text/css">
+	</head>
+	<body>
+		<h1>NTCIR7 Scoring tools for Patent Translation task</h1>
+
+		<h2>What's this?</h2>
+		<p>
+		This package is made up of the following commands for computing BLEU and some statistics.
+		</p>
+		<dl>
+			<dt>doc_bleu.rb</dt>
+			<dd>Calculate BLEU score for entire document.</dd>
+			<dt>line_bleu.rb</dt>
+			<dd>Calculate BLEU score for each lines.</dd>
+			<dt>bootstrap.rb</dt>
+			<dd>Test whether two translation results have a significant difference or not, using bootstrap method.</dd>
+			<dt>binom.rb</dt>
+			<dd>Test whether two translation results have a significant difference or not, using sign test.</dd>
+			<dt>confiv.rb</dt>
+			<dd>Calculate confidence interval of BLEU score.</dd>
+		</dl>
+
+		<h2>Change Log</h2>
+		<h4>1.05</h4>
+		<p>
+		Ruby 1.9 ready.
+		</p>
+		<p>
+		Japanese comments of bleulib.rb are translated into English.
+		</p>
+		<h4>1.04</h4>
+		<p>
+		Japanese comments are added on bleulib.rb. Charset is <strike>EUC_JP</strike> UTF-8.
+		These comments are planned to translate into English on the next version.
+		</p>
+		<p>
+		If corpus word count is smaller than BLEU ngram(default: 4 words), bleulib.rb(version &lt;= 1.03) aborts. This bug is fixed on 1.04.
+		</p>
+		<h4>1.03</h4>
+		<p>
+		bleulib.rb(0.08 &lt;= version &lt;= 1.01) has a small bug and it affects to
+		line_bleu.rb of "-ngram" option.
+		Please use a bugfix version(1.03).
+		</p>
+
+		<h2>Usages and Outputs</h2>
+
+		<h3>doc_bleu.rb</h3>
+		<blockquote>
+		ruby doc_bleu.rb [options] [Translation Result] [Reference...]
+		</blockquote>
+		<p>
+		The options of doc_bleu.rb are followings:
+		</p>
+		<dl>
+			<dt>-v level</dt>
+			<dd>Verbose mode(0,1,2: default=0) </dd>
+			<dt>--ngram n</dt>
+			<dd>Calcurate ngram BLEU</dd>
+		</dl>
+
+		<h3>line_bleu.rb</h3>
+		<blockquote>
+		ruby line_bleu.rb [options] [translation result] [references...]
+		</blockquote>
+		<p>
+		The option of line_bleu.rb is only the following:
+		</p>
+		<dl>
+			<dt>-ngram min:max</dt>
+			<dd>Calc from min-gram to max-gram(default 4:4)</dd>
+		</dl>
+
+		<h4>outputs</h4>
+		<blockquote>
+		[max-gram BLEU]\t[(max-1)-gram BLEU]\t...[min-gram BLEU]\t[Translation Result]
+		</blockquote>
+
+		<h3>bootstrap.rb</h3>
+		<blockquote>
+		ruby bootstrap.rb [Random Seed] [Number of Sampling] [System1 Result] [System2 Result] [Reference..]
+		</blockquote>
+
+		<h3>binom.rb</h3>
+		<blockquote>
+		ruby binom.rb [Random Seed] [Significance Level(%)] [Partition Number] [System1] [System2] [Reference..]
+		</blockquote>
+
+		<h3>confiv.rb</h3>
+		<blockquote>
+		ruby confiv.rb [options] [Random Seed] [Number of Sampling] [Significance Level(%)] [System result] [Reference..]
+		</blockquote>
+		<p>
+		The option of confiv.rb is only the following:
+		</p>
+		<dl>
+			<dt>--gnuplot</dt>
+			<dd>Output results for gnuplot friendly.</dd>
+		</dl>
+
+		<h4>Outputs</h4>
+		<p>
+		If you use --gnuplot option, output is following when interval is [min,max]:
+		</p>
+		<blockquote>
+		[System BLEU]\t[min]\t[max]\n
+		</blockquote>
+
+		<h2>File Format</h2>
+		<p>
+		All programs require result and reference files the same lines of which must have the relationship of result-reference at sentence level.
+		File format is follows:
+		</p>
+		<ol>
+			<li>A line must only contains 1 sentence.</li>
+			<li>Each line must be tokenized.</li>
+			<li>This programs does NOT require any tags.</li>
+		</ol>
+		<p>
+		Please look at examples in a package.
+		</p>
+
+		<h2>Note</h2>
+		<ul>
+			<li>If you find ANY bugs, please contact at <img src="adr.jpg" alt="adr" />.
+		</ul>
+
+		<h2>License</h2>
+		<ul>
+			<li>MIT License</li>
+		</ul>
+
+		<h2>References</h2>
+		<ol>
+			<li>Kishore Papineni, Salim Roukos, Todd Ward, and Wei-Jing Zhu. 2001.<br />
+			BLEU: a method for automatic evaluation of machine translation. In ACL กว02: Proceedings of the 40th Annual Meeting on Association for Computational Linguistics, pp. 311-318, Morristown, NJ, USA. Association for Computational Linguistics.</li>
+			<li>Philipp Koehn . 2004.<br />
+			Statistical Significance Tests for Machine Translation Evaluation. In Proc. of EMNLP 2004.</li>
+			<li>Philipp Koehn and Christof Monz. 2006.<br />
+			Manual and Automatic Evaluation of Machine Translation between European Languages</li>
+		</ol>
+
+		<h2>Acknowledgement</h2>
+		<p>
+		The author would like to thank Professor Mikio Yamamoto for his many advices to this work.
+		</p>
+
+		<div id="sig">
+			Jun-ya NORIMATSU<br />
+			Department of Computer Science<br />
+			Graduate school of Systems and Information Engineering,<br />
+			University of Tsukuba.
+		</div>
+	</body>
+</html>
+

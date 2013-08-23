@@ -1,0 +1,22 @@
+[Jane]
+decoder = cubePrune
+
+[Jane.singleBest]
+fileIn = <TESTFILE>
+fileOut = output.ja
+
+[Jane.nBest]
+size = 100
+
+[Jane.CubePrune]
+generationNbest = 100
+observationHistogramSize = 50
+
+[Jane.CubePrune.LM]
+file = <LMFILE>
+
+[Jane.CubePrune.rules]
+file = <RULEFILE>
+
+[Jane.scalingFactors]
+<LAMBDA>
